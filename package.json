@@ -1,7 +1,7 @@
 { 
   "name": "requireincontext",
   "description": "Wrapper to require() js files in a custom context",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Mikito Takada <mixu@mixu.net>",
   "keywords": ["require"],
   "repository": "git://github.com/mixu/requireincontext",

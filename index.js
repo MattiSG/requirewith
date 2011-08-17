@@ -18,15 +18,14 @@ function runInContext(filename, sandbox) {
   content = stripBOM(content).replace(/^\#\!.*/, '');
 
   // emulate require()  
-  var self = { exports: {} };
   for (var k in global) {
     sandbox[k] = global[k];
   }
   sandbox.require = require;
   sandbox.__filename = filename;
   sandbox.__dirname = path.dirname(filename);
-  sandbox.module = self;
-  sandbox.exports = self.exports;
+  sandbox.exports = {};
+  sandbox.module = sandbox;
   sandbox.global = sandbox;
 
   vm.runInNewContext(content, sandbox);
