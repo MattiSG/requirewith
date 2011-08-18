@@ -2,6 +2,12 @@
 
 Allows you to do a require() with a custom context.
 
+# Installing:
+
+    npm install requireincontext
+
+# Using:
+
 Useful for emulating a browser environment in Node:
 
     var requireInContext = require('requireincontext');
@@ -17,5 +23,3 @@ Or for specifying mock objects for running tests:
       mydependency: require('./dependency_mock.js')
     });
 
-
-        
