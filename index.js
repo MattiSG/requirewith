@@ -1,5 +1,6 @@
-var vm = require('vm');
-var path = require('path');
+var vm = require('vm'),
+    path = require('path'),
+    fs = require('fs');
 
 // From lib/module.js in the Node.js core (v.0.5.3)
 function stripBOM(content) {
@@ -12,18 +13,19 @@ function stripBOM(content) {
   return content;
 }
 
-function runInContext(filename, sandbox) {  
-  var content = require('fs').readFileSync(require.resolve(filename), 'utf8');
+function runInContext(filename, sandbox) {
+  var fullpath = require.resolve(filename),
+      content = fs.readFileSync(fullpath, 'utf8');
   // remove shebang
   content = stripBOM(content).replace(/^\#\!.*/, '');
 
-  // emulate require()  
+  // emulate require()
   for (var k in global) {
     sandbox[k] = global[k];
   }
   sandbox.require = require;
   sandbox.__filename = filename;
-  sandbox.__dirname = path.dirname(filename);
+  sandbox.__dirname = path.dirname(fullpath)+'/';
   sandbox.exports = {};
   sandbox.module = sandbox;
   sandbox.global = sandbox;
