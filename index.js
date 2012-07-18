@@ -2,14 +2,22 @@ var vm = require('vm'),
 	path = require('path'),
 	fs = require('fs');
 
+var cache = {}
+
 function dispatch(filename, injected, encoding) {
 	if (filename.charAt(0) == '.')	// handle local files
 		filename = path.resolve(path.dirname(module.parent.filename), filename);
 	
-	if (injected)
-		return runInContext(filename, injected, encoding);
-	else
+	if (! injected)
 		return require(filename);
+
+	if (! cache[filename])
+		cache[filename] = {};
+
+	if (! cache[filename][injected])
+		cache[filename][injected] = runInContext(filename, injected, encoding);
+	
+	return cache[filename][injected];
 }
 
 function runInContext(filename, sandbox, encoding) {
