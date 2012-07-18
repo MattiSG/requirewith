@@ -2,19 +2,19 @@ var vm = require('vm'),
 	path = require('path'),
 	fs = require('fs');
 
-function dispatch(filename, injected) {
+function dispatch(filename, injected, encoding) {
 	if (filename.charAt(0) == '.')	// handle local files
 		filename = path.resolve(path.dirname(module.parent.filename), filename);
 	
 	if (injected)
-		return runInContext(filename, injected);
+		return runInContext(filename, injected, encoding);
 	else
 		return require(filename);
 }
 
-function runInContext(filename, sandbox) {
+function runInContext(filename, sandbox, encoding) {
 	var fullpath = require.resolve(filename),
-		content = fs.readFileSync(fullpath, 'utf8');
+		content = fs.readFileSync(fullpath, encoding || 'utf8');
 
 	// remove shebang
 	content = stripBOM(content).replace(/^\#\!.*/, '');
