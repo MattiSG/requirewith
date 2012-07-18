@@ -10,4 +10,9 @@ assert.strictEqual(requireInContext('./boomerang', {
 	payload: PAYLOAD
 }), PAYLOAD, "Passed value is not transmitted properly.");
 
+var REQUIRED_MODULE = 'path';
+assert.strictEqual(requireInContext('./pathRequirer', {
+	passedModule: REQUIRED_MODULE
+}), require(REQUIRED_MODULE), "Inner requires fail.")
+
 console.log('All tests pass  :)');
