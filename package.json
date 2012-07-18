@@ -6,5 +6,6 @@
   "contributors": "Mikito Takada <mixu@mixu.net>",
   "keywords": ["require", "dependency injection", "inject"],
   "repository": "git://github.com/MattiSG/requireincontext",
-  "main": "index.js"
+  "main": "index.js",
+  "test": "node ./test"
 }
