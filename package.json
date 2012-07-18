@@ -1,9 +1,10 @@
 { 
-  "name": "requireincontext",
+  "name": "mattisg.requireincontext",
   "description": "Wrapper to require() js files in a custom context",
-  "version": "0.0.2",
-  "author": "Mikito Takada <mixu@mixu.net>",
-  "keywords": ["require"],
-  "repository": "git://github.com/mixu/requireincontext",
+  "version": "0.1.0",
+  "author": "Matti Schneider <hi@mattischneider.fr> (http://mattischneider.fr)",
+  "contributors": "Mikito Takada <mixu@mixu.net>",
+  "keywords": ["require", "dependency injection", "inject"],
+  "repository": "git://github.com/MattiSG/requireincontext",
   "main": "index.js"
 }
