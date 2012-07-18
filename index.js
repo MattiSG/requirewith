@@ -23,7 +23,7 @@ function runInContext(filename, sandbox) {
 	for (var k in global)
 		sandbox[k] = global[k];
 
-	sandbox.require = require;
+	sandbox.require = dispatch;
 	sandbox.__filename = fullpath;
 	sandbox.__dirname = path.dirname(fullpath) + '/';
 	sandbox.exports = {};
