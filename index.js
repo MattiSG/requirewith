@@ -3,6 +3,9 @@ var vm = require('vm'),
 	fs = require('fs');
 
 function dispatch(filename, injected) {
+	if (filename.charAt(0) == '.')	// handle local files
+		filename = path.resolve(path.dirname(module.parent.filename), filename);
+	
 	if (injected)
 		return runInContext(filename, injected);
 	else
