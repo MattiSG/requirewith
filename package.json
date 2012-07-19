@@ -1,10 +1,13 @@
 { 
   "name": "mattisg.requirewith",
-  "description": "Wrapper to require() js files in a custom context",
+  "description": "Wrapper to require() modules with dependency injection.",
   "version": "0.1.0",
   "author": "Matti Schneider <hi@mattischneider.fr> (http://mattischneider.fr)",
-  "contributors": [ "Johannes Ewald <mail@johannesewald.de> (http://johannesewald.de)" ],
-  "keywords": ["require", "dependency injection", "inject"],
+  "contributors": [
+    "Johannes Ewald <mail@johannesewald.de> (http://johannesewald.de)",
+    "Mikito Takada <mixu@mixu.net>"
+  ],
+  "keywords": ["require", "dependency injection", "inject", "variable passing"],
   "repository": "git://github.com/MattiSG/requirewith",
   "main": "index.js",
   "test": "node ./test"

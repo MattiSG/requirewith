@@ -1,7 +1,7 @@
 RequireWith
 ===========
 
-Allows you to do inject dependencies in (i.e. pass variables to) a `require`d module.
+Allows you to do inject dependencies in (i.e. pass variables to) a `require`d Node.js module.
 
 Usage
 -----
