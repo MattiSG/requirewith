@@ -1,7 +1,7 @@
 { 
   "name": "mattisg.requirewith",
   "description": "Wrapper to require() modules with dependency injection.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Matti Schneider <hi@mattischneider.fr> (http://mattischneider.fr)",
   "contributors": [
     "Johannes Ewald <mail@johannesewald.de> (http://johannesewald.de)",
