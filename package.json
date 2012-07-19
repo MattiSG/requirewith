@@ -1,6 +1,7 @@
 { 
   "name": "mattisg.requirewith",
   "description": "Wrapper to require() modules with dependency injection.",
+  "homepage": "https://github.com/MattiSG/requirewith",
   "version": "0.1.1",
   "author": "Matti Schneider <hi@mattischneider.fr> (http://mattischneider.fr)",
   "contributors": [
