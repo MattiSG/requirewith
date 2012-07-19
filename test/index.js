@@ -15,4 +15,8 @@ assert.strictEqual(requireInContext('./pathRequirer', {
 	passedModule: REQUIRED_MODULE
 }), require(REQUIRED_MODULE), "Inner requires fail.")
 
+assert.strictEqual(requireInContext('./recursive', {
+	payload: PAYLOAD
+}), PAYLOAD, "Recursively passed value is not transmitted properly.");
+
 console.log('All tests pass  :)');
