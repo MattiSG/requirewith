@@ -39,4 +39,4 @@ To disable recursive redefinitions, pass `false` as the third argument. To summa
 
 # Installation
 
-npm install mattisg.requirewith
+	npm install mattisg.requirewith

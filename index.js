@@ -26,7 +26,7 @@ function dispatch(filename, injected, recursive) {
 
 function runInContext(filename, injected, recursive) {
 	if (recursive !== false)
-		Module.wrapper[0] += 'require = require("mattisg.requireincontext");';	// this is why the module has to be installed in order to work properly
+		Module.wrapper[0] += 'require = require("mattisg.requirewith");';	// this is why the module has to be installed in order to work properly
 
 	for (var k in injected)
 		Module.wrapper[0] += 'var ' + k + '=' + JSON.stringify(injected[k]) + ';';
