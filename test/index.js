@@ -1,4 +1,4 @@
-var requireInContext = require('../index'),
+var requireInContext = require('mattisg.requireincontext'),	// the module has to be installed in order to work properly
 	assert = require('assert');
 
 assert.strictEqual(require('./localModule'), true, "Local module could not be required properly, test case is broken.");
