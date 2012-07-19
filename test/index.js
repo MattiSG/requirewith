@@ -20,4 +20,8 @@ assert.strictEqual(requireInContext('./recursive', {
 	halfPayload: HALF_PAYLOAD
 }), PAYLOAD, "Recursively passed value is not transmitted properly.");
 
+assert.strictEqual(requireInContext('./subfolder/recursive', {
+	halfPayload: HALF_PAYLOAD
+}), PAYLOAD, "Recursively loaded modules paths are not evaluated against the correct module.");
+
 console.log('All tests pass  :)');
