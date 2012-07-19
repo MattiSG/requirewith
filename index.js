@@ -1,56 +1,47 @@
-var vm = require('vm'),
-	path = require('path'),
+var Module = require('module'),	// capitalize to not override the `module` reference defined by `require`
 	fs = require('fs');
 
-var cache = {}
+var cache = {},
+	prevModuleHeader = Module.wrapper[0], // caching original wrapper
+	prevRequire = Module.prototype.require,
+	rewiredModules = [];    // cache for all rewired modules so it can be reset anytime
 
-function dispatch(filename, injected, encoding) {
-	if (filename.charAt(0) == '.')	// handle local files
-		filename = path.resolve(path.dirname(module.parent.filename), filename);
-	
+function restoreModule() {
+	Module.wrapper[0] = prevModuleHeader;
+	Module.prototype.require = prevRequire;
+}
+
+function dispatch(filename, injected, recursive) {
+	// Resolve full filename relative to the parent module
+	filename = Module._resolveFilename(filename, module.parent);
+
 	if (! injected)
-		return require(filename);
+		return prevRequire(filename);
 
 	if (! cache[filename])
 		cache[filename] = {};
 
 	if (! cache[filename][injected])
-		cache[filename][injected] = runInContext(filename, injected, encoding);
+		cache[filename][injected] = runInContext(filename, injected, recursive);
 	
 	return cache[filename][injected];
 }
 
-function runInContext(filename, sandbox, encoding) {
-	var fullpath = require.resolve(filename),
-		content = fs.readFileSync(fullpath, encoding || 'utf8');
+function runInContext(filename, injected, recursive) {
+	if (recursive !== false)
+		Module.wrapper[0] += 'require = require("mattisg.requireincontext");';
 
-	// remove shebang
-	content = stripBOM(content).replace(/^\#\!.*/, '');
+	for (var k in injected)
+		Module.wrapper[0] += 'var ' + k + '=' + JSON.stringify(injected[k]) + ';';
 
-	// emulate require()
-	for (var k in global)
-		sandbox[k] = global[k];
+	// Create loadedModule as it would be created by require()
+	var loadedModule = new Module(filename, module.parent);
 
-	sandbox.require = dispatch;
-	sandbox.__filename = fullpath;
-	sandbox.__dirname = path.dirname(fullpath) + '/';
-	sandbox.exports = {};
-	sandbox.module = sandbox;
-	sandbox.global = sandbox;
+	loadedModule.load(loadedModule.id);
+	
+	restoreModule();
 
-	vm.runInNewContext(content, sandbox);
-	return sandbox.exports;
-}
-
-// From lib/module.js in the Node.js core (v.0.5.3)
-function stripBOM(content) {
-	// Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
-	// because the buffer-to-string conversion in `fs.readFileSync()`
-	// translates it to FEFF, the UTF-16 BOM.
-	if (content.charCodeAt(0) === 0xFEFF)
-		content = content.slice(1);
-
-	return content;
+	return loadedModule.exports;
 }
 
 module.exports = dispatch;
