@@ -2,13 +2,10 @@ var Module = require('module'),	// capitalize to not override the `module` refer
 	fs = require('fs');
 
 var cache = {},
-	prevModuleHeader = Module.wrapper[0], // caching original wrapper
-	prevRequire = Module.prototype.require,
-	rewiredModules = [];    // cache for all rewired modules so it can be reset anytime
+	prevModuleHeader = Module.wrapper[0]; // caching original wrapper
 
 function restoreModule() {
 	Module.wrapper[0] = prevModuleHeader;
-	Module.prototype.require = prevRequire;
 }
 
 function dispatch(filename, injected, recursive) {
@@ -16,7 +13,7 @@ function dispatch(filename, injected, recursive) {
 	filename = Module._resolveFilename(filename, module.parent);
 
 	if (! injected)
-		return prevRequire(filename);
+		return require(filename);
 
 	if (! cache[filename])
 		cache[filename] = {};
