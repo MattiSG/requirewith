@@ -5,7 +5,8 @@ assert.strictEqual(require('./localModule'), true, "Local module could not be re
 
 assert.strictEqual(requireInContext('./localModule'), true, "Local module could not be requiredInContext properly, compatibility with require is broken.");
 
-var PAYLOAD = 'toto';
+var HALF_PAYLOAD = 'to';	// see recursive.js to understand why it is useful to write the test this way.
+var PAYLOAD = HALF_PAYLOAD + HALF_PAYLOAD;
 assert.strictEqual(requireInContext('./boomerang', {
 	payload: PAYLOAD
 }), PAYLOAD, "Passed value is not transmitted properly.");
@@ -16,7 +17,7 @@ assert.strictEqual(requireInContext('./pathRequirer', {
 }), require(REQUIRED_MODULE), "Inner requires fail.")
 
 assert.strictEqual(requireInContext('./recursive', {
-	payload: PAYLOAD
+	halfPayload: HALF_PAYLOAD
 }), PAYLOAD, "Recursively passed value is not transmitted properly.");
 
 console.log('All tests pass  :)');
